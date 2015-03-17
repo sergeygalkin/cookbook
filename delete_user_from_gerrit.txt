@@ -1,0 +1,12 @@
+# For H2 db
+ssh -p 29418 gerrit.examle.com gerrit gsql
+select * from accounts
+select * from account_external_ids 
+# remeber ACCOUNT_ID for deleting user. 1000008 on example
+delete from accounts where full_name='John Hopkins';
+delete from account_external_ids where external_id='gerrit:jhopkins';
+delete from account_external_ids where external_id='username:jhopkins';
+delete from ACCOUNT_GROUP_MEMBERS where ACCOUNT_ID=1000008;
+delete from ACCOUNT_GROUP_MEMBERS_AUDIT where ACCOUNT_ID=1000008;
+delete from account_ssh_keys where account_id=1000008;
+
