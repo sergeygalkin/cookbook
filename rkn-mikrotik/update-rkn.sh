@@ -16,7 +16,11 @@ if [ ! -f ${PARSER_FILE} ]; then
  wget ${PARSER_URL}
  chmod 755 ${PARSER_FILE}
 fi
-./${PARSER_FILE} -src-file $SRC_FILE -prefix 'add address=' -suffix ' list=rkn' >> $TMP_FILE
+./${PARSER_FILE} -src-file $SRC_FILE -intensive-aggregation-max-fake-ips 1028 -intensive-aggregation-min-prefix 19 -prefix 'add address=' -suffix ' list=rkn' >> $TMP_FILE
 echo "" >> $TMP_FILE
 echo "/log info $(date -d '+3 hours' +%D/%T)" >> $TMP_FILE
 mv $TMP_FILE $DST_FILE
+# Remove pikabu nets
+sed -i '/^add address=212.224.112./d' $DST_FILE
+sed -i '/^add address=91.228.144./d' $DST_FILE
+
