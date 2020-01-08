@@ -1,0 +1,14 @@
+[Unit]
+Description=Update Gentoo
+
+[Service]
+Type=oneshot
+ExecStartPre=rm -rf /usr/portage/.tmp-unverified-download-quarantine
+ExecStart=eix-sync
+ExecStart=layman -S
+ExecStart=eix-update
+ExecStart=emerge -vtuN --changed-deps --deep --keep-going world
+ExecStart=emerge @preserved-rebuild
+ExecStart=emerge --depclean
+ExecStart=eclean-dist
+ExecStartPost=rm -rf /usr/portage/.tmp-unverified-download-quarantine
