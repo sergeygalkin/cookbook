@@ -1,4 +1,4 @@
-# For H2 db
+# For H2 db and gerrit 2
 ssh -p 29418 gerrit.examle.com gerrit gsql
 select * from accounts
 select * from account_external_ids 
@@ -9,4 +9,21 @@ delete from account_external_ids where external_id='username:jhopkins';
 delete from ACCOUNT_GROUP_MEMBERS where ACCOUNT_ID=1000008;
 delete from ACCOUNT_GROUP_MEMBERS_AUDIT where ACCOUNT_ID=1000008;
 delete from account_ssh_keys where account_id=1000008;
+
+
+# For gerrit 3 only rename teseted
+# the user is jusr 'deluser'
+# delete email from user
+ssh -p 29418 gerrit.examle.com set-account --delete-email deluser@exmaple.com deluser
+git clone  ssh://gerrit.examle.com:29418/All-Users
+cd All-Users
+git fetch origin refs/meta/external-ids && git checkout FETCH_HEAD
+# find user by 'echo -n 'username:deluser' | sha1sum
+vim 690262fe9090abd18324ee4cf46ddf3cc3ca6aab 
+# change externalId from 'username:deluser' to 'username:newuser'
+# get 'echo -n 'username:newuser' | sha1sum' this is 6ec8927242ffd63988b1b85fc058190265ce6727
+git mv 690262fe9090abd18324ee4cf46ddf3cc3ca6aab 6ec8927242ffd63988b1b85fc058190265ce6727
+git commit
+# provide rights to push to refs/meta/* in All-Users
+git push origin HEAD:refs/meta/external-ids
 
