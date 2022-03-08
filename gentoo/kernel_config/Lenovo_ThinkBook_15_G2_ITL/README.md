@@ -9,6 +9,6 @@ dracut image
 ```
 
 ```
-gals-rolos ~ # du -sh /lib/modules/5.16.12-gentoo/
+# du -sh /lib/modules/5.16.12-gentoo/
 1.7G	/lib/modules/5.16.12-gentoo/
 ```
