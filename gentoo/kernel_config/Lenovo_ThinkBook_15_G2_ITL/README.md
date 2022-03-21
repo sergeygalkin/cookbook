@@ -12,3 +12,15 @@ dracut image
 # du -sh /lib/modules/5.16.12-gentoo/
 1.7G	/lib/modules/5.16.12-gentoo/
 ```
+
+5.16.14 is ok
+
+```
+# ls -lh /boot/initramfs-5.15.26.img
+-rwxr-xr-x 1 root root 29M Mar  7 12:43 /boot/initramfs-5.15.26.img
+```
+
+```
+# du -sh /lib/modules/5.16.14-gentoo
+86M	/lib/modules/5.16.14-gentoo
+```
